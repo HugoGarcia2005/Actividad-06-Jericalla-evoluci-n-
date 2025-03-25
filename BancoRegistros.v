@@ -11,11 +11,18 @@ module BancoRegistros(
 
 reg [31:0] MEM_BANCO [0:31];
 
+initial begin
+	$readmemb("DatosBanco.txt",MEM_BANCO);
+end
+
+always @* begin
+	DR1_BANCO=MEM_BANCO[RA1_BANCO];
+	DR2_BANCO=MEM_BANCO[RA2_BANCO];
+end
+
 always @* begin
 	if(WE_BANCO)begin
 		MEM_BANCO[WA_BANCO]=DW_BANCO;
 	end
-	DR1_BANCO=MEM_BANCO[RA1_BANCO];
-	DR2_BANCO=MEM_BANCO[RA2_BANCO];
 end
 endmodule
