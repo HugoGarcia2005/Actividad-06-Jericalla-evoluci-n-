@@ -1,4 +1,3 @@
-//Maciel Vargas Oswaldo Daniel
 module RAM(
 	input [31:0] address,
 	input [31:0] datoIn,
