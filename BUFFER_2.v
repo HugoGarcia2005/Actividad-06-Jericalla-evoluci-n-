@@ -14,21 +14,13 @@ module BUFFER_2 (
 	output reg [0:31]dataOut_DR2
 );
 
-reg [0:5] buffer; 
-
 always @(posedge clk) begin
-	buffer[0] <= dataIn_wE_BR;
-	buffer[1] <= dataIn_W_ram;
-	buffer[2] <= dataIn_R_ram;
-	buffer[3] <= dataIn_DW_alu;
-	buffer[4] <= dataIn_DR1;
-	buffer[5] <= dataIn_DR2;
-	dataOut_wE_BR <= buffer[0];
-	dataOut_W_ram <= buffer[1];
-	dataOut_R_ram <= buffer[2];
-	dataOut_DW_alu <= buffer[3];
-	dataOut_DR1 <= buffer[4];
-	dataOut_DR2 <= buffer[5];
+	dataOut_wE_BR <= dataIn_wE_BR;
+	dataOut_W_ram <= dataIn_W_ram;
+	dataOut_R_ram <= dataIn_R_ram;
+	dataOut_DW_alu <= dataIn_DW_alu;
+	dataOut_DR1 <= dataIn_DR1;
+	dataOut_DR2 <= dataIn_DR2;
 end
 
 endmodule
