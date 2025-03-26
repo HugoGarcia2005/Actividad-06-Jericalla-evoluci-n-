@@ -4,7 +4,6 @@ module BancoRegistros(
 	input [4:0] WA_BANCO,
 	input [31:0] DW_BANCO,
 	input WE_BANCO,
-
 	output reg [31:0] DR1_BANCO,
 	output reg [31:0] DR2_BANCO
 );
@@ -12,7 +11,7 @@ module BancoRegistros(
 reg [31:0] MEM_BANCO [0:31];
 
 initial begin
-	$readmemb("DatosBanco.txt",MEM_BANCO);
+	$readmemb("DatosBR.txt",MEM_BANCO);
 end
 
 always @* begin

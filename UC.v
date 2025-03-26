@@ -1,14 +1,14 @@
 module UNIDAD_CONTROL (
-	input [0:2] inst,
+	input [2:0] op_code,
 	output reg wEnable_BR,
 	output reg SEL_dmx,
-	output reg [0:3] OP_alu,
+	output reg [3:0] OP_alu,
 	output reg W_ram,
 	output reg R_ram
 );
 
 always @* begin
-	case (inst)
+	case (op_code)
 		3'b000:
 			begin
 			wEnable_BR=1'b1;

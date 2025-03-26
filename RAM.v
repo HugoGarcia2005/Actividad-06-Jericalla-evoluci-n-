@@ -10,7 +10,7 @@ reg [31:0] mem_ram [0:127];
 
 always @* begin
 	if (W&&R)begin 
-		datoOut=32'bx;
+		datoOut=32'd0;
 	end
 	else if(W)begin
 		mem_ram[address]=datoIn;
@@ -22,5 +22,6 @@ always @* begin
 		datoOut=32'd0;
 	end
 end
+
 endmodule
 

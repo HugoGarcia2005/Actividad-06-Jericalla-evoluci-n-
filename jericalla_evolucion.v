@@ -1,8 +1,8 @@
 module jericalla_evo (
-	input [0:17] instruccion,
+	input [17:0] instruccion,
 	input clk_jericalla,
 	output zf_jericalla,
-	output [0:31]dataOut_jericalla
+	output [31:0]dataOut_jericalla
 );
 
 //Unidad de control a Banco de registros
@@ -40,9 +40,12 @@ wire dmx_bff2_RAM;
 wire bff2_ram_RAM;
 //Buffer2 a DataInRAM
 wire bff2_dataINram;
+//Entrada de instruccion a WA en Banco de registros
+wire bff1_bff2_WA;
+wire bff2_wa_WA;
 
 UNIDAD_CONTROL uc_jericalla(
-	.op_code(instruccion[15:17]),
+	.op_code(instruccion[17:15]),
 	.wEnable_BR(uc_bff1_BR),
 	.SEL_dmx(uc_dmx),
 	.OP_alu(uc_alu),
@@ -51,9 +54,9 @@ UNIDAD_CONTROL uc_jericalla(
 );
 
 BancoRegistros br_jericalla(
-	.RA1_BANCO(instruccion[5:9]),
-	.RA2_BANCO(instruccion[0:4]),
-	.WA_BANCO(instruccion[10:14]),
+	.RA1_BANCO(instruccion[9:5]),
+	.RA2_BANCO(instruccion[4:0]),
+	.WA_BANCO(bff2_wa_WA),
 	.DW_BANCO(bff2_dwbr_DWBR),
 	.WE_BANCO(bff2_br_BR),
 	.DR1_BANCO(dr1_bff1),
@@ -68,6 +71,7 @@ BUFFER_1 buffer1_jericalla(
 	.dataIn_R_ram(uc_bff1_Rram),
 	.dataIn_DR1(dr1_bff1),
 	.dataIn_DR2(dr2_bff1),
+	.waIn_BR(instruccion[14:10]),
 	.clk(clk_jericalla),
 	.dataOut_wE_BR(bff1_bff2_BR),
 	.dataOut_OP_alu(bff1_alu_ALU),
@@ -75,7 +79,8 @@ BUFFER_1 buffer1_jericalla(
 	.dataOut_W_ram(bff1_bff2_Wram),
 	.dataOut_R_ram(bff1_bff2_Rram),
 	.dataOut_DR1(bff1_dmx),
-	.dataOut_DR2(bff1_aluin2_bff2)
+	.dataOut_DR2(bff1_aluin2_bff2),
+	.waOut_BR(bff1_bff2_WA)
 );
 
 Demultiplexor dmx_jericalla(
@@ -100,13 +105,15 @@ BUFFER_2 buffer2_jericalla(
 	.dataIn_DW_alu(alu_bff2_DWBR),
 	.dataIn_DR1(dmx_bff2_RAM),
 	.dataIn_DR2(bff1_aluin2_bff2),
+	.waIn_BR(bff1_bff2_WA),
 	.clk(clk_jericalla),
 	.dataOut_wE_BR(bff2_br_BR),
 	.dataOut_W_ram(bff2_wram_Wram),
 	.dataOut_R_ram(bff2_rram_Rram),
 	.dataOut_DW_alu(bff2_dwbr_DWBR),
 	.dataOut_DR1(bff2_ram_RAM),
-	.dataOut_DR2(bff2_dataINram)
+	.dataOut_DR2(bff2_dataINram),
+	.waOut_BR(bff2_wa_WA)
 );
 
 RAM ram_jericalla(
