@@ -26,6 +26,5 @@ initial begin
 	#100;
 	instruccion = 18'011000000011001001b;
 	#100;
-	instruccion = 18'b;
 end
 endmodule
