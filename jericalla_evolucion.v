@@ -13,8 +13,8 @@ wire bff2_br_BR;//x
 wire uc__bff1_DMX;//X
 wire bff1_dmx_DMX;
 //D¿Unidad de control a Alu
-wire uc_bff1_ALU;//X
-wire bff1_alu_ALU;
+wire [3:0]uc_bff1_ALU;//X
+wire [3:0]bff1_alu_ALU;
 //Unidad de control a W ram
 wire uc_bff1_Wram;//X
 wire bff1_bff2_Wram;
@@ -24,26 +24,26 @@ wire uc_bff1_Rram;//X
 wire bff1_bff2_Rram;
 wire bff2_rram_Rram;
 //Banco de registros a Buffer 1
-wire dr1_bff1;//x
-wire dr2_bff1;//x
+wire [31:0]dr1_bff1;//x
+wire [31:0]dr2_bff1;//x
 //Buffer 1 a Dmx
-wire bff1_dmx;
+wire [31:0]bff1_dmx;
 //Buffer 1 AluIn2 y Buffer 2
-wire bff1_aluin2_bff2;
+wire [31:0]bff1_aluin2_bff2;
 //Buffer 2 a Alu en DWBR
-wire alu_bff2_DWBR;
-wire bff2_dwbr_DWBR;
+wire [31:0]alu_bff2_DWBR;
+wire [31:0]bff2_dwbr_DWBR;
 //Dmx a Alu
-wire dmx_alu;
+wire [31:0]dmx_alu;
 //Dmx a RAM
-wire dmx_bff2_RAM;
-wire bff2_ram_RAM;
+wire [31:0]dmx_bff2_RAM;
+wire [31:0]bff2_ram_RAM;
 //Buffer2 a DataInRAM
-wire bff2_dataINram;
+wire [31:0]bff2_dataINram;
 //Entrada de instruccion a WA en Banco de registros
-wire bff1_bff2_WA;
-wire bff2_wa_WA;
-
+wire [4:0]bff1_bff2_WA;
+wire [4:0]bff2_wa_WA;
+	
 UNIDAD_CONTROL uc_jericalla(
 	.op_code(instruccion[17:15]),
 	.wEnable_BR(uc_bff1_BR),
