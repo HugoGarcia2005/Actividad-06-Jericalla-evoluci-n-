@@ -13,6 +13,11 @@ Jericalla_evo J_evo_TB (
 );
 
 initial begin
+        clk_jericalla = 0;       
+        forever #10 clk_jericalla = ~clk_jericalla;  
+end
+
+initial begin
 	#100;
 	instruccion = 18'b000001000000000001;
 	#100;
