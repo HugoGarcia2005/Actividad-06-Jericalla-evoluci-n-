@@ -47,8 +47,8 @@ wire bff2_wa_WA;
 UNIDAD_CONTROL uc_jericalla(
 	.op_code(instruccion[17:15]),
 	.wEnable_BR(uc_bff1_BR),
-	.SEL_dmx(uc_dmx),
-	.OP_alu(uc_alu),
+	.SEL_dmx(uc__bff1_DMX),
+	.OP_alu(uc_bff1_ALU),
 	.W_ram(uc_bff1_Wram),
 	.R_ram(uc_bff1_Rram)
 );
