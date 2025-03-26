@@ -117,8 +117,8 @@ BUFFER_2 buffer2_jericalla(
 );
 
 RAM ram_jericalla(
-	.address(bff2_ram_RAM),
-	.datoIn(bff2_dataINram),
+	.address(bff2_dataINram),
+	.datoIn(bff2_ram_RAM),
 	.W(bff2_wram_Wram),
 	.R(bff2_rram_Rram),
 	.datoOut(dataOut_jericalla)
