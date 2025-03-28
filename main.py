@@ -33,7 +33,7 @@ def parse_instruction(line):
         rs2 = register_to_bin(parts[3])
         return f"{opcode}{rd}{rs1}{rs2}"
     
-    # Instrucciones de memoria (SW, LW) - FORMATO CORREGIDO
+    # Instrucciones de memoria (SW, LW)
     elif opcode in ["011", "100"]:
         if len(parts) != 3 or '(' not in parts[2] or ')' not in parts[2]:
             raise ValueError(f"Formato incorrecto: {line}. Debe ser: OP $rt, offset($rs)")
@@ -41,8 +41,7 @@ def parse_instruction(line):
         offset_rs = parts[2].strip(')').split('(')
         offset = offset_rs[0]
         rs = register_to_bin(offset_rs[1])
-        offset_bin = f"{int(offset):05b}"  # Offset a 5 bits
-        # ORDEN CORRECTO: opcode(3) + rs(5) + rt(5) + offset(5)
+        offset_bin = f"{int(offset):05b}"  
         return f"{opcode}{rs}{rt}{offset_bin}"
 
 class ASMConverterApp:
@@ -50,7 +49,7 @@ class ASMConverterApp:
         self.root = root
         self.root.title("Ensamblador a Binario")
         self.root.geometry("800x600")
-        self.root.configure(bg="#333333")  # Fondo gris oscuro
+        self.root.configure(bg="#333333") 
         
         # Frame principal
         self.main_frame = tk.Frame(root, bg="#333333")
