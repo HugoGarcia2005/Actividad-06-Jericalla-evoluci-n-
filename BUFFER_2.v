@@ -2,7 +2,7 @@ module BUFFER_2 (
 	input dataIn_wE_BR,
 	input dataIn_W_ram,
 	input dataIn_R_ram,
-	input [31:0] dataIn_DW_alu,
+	input [31:0]dataIn_DW_alu,
 	input [31:0]dataIn_DR1,
 	input [31:0]dataIn_DR2,
 	input [4:0] waIn_BR,

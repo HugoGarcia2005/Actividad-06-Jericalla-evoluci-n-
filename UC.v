@@ -37,17 +37,25 @@ always @* begin
 			begin
 			wEnable_BR=1'b0;
 			SEL_dmx=1'b1;
-			OP_alu=4'b1111;
+			OP_alu=4'b0010;
 			W_ram=1'b1;
 			R_ram=1'b0;
 			end
 		3'b100:
 			begin
-			wEnable_BR=1'b1;
+			wEnable_BR=1'b0;
 			SEL_dmx=1'b1;
-			OP_alu=4'b0111;
+			OP_alu=4'b1111;
 			W_ram=1'b0;
 			R_ram=1'b1;
+			end
+		default:
+			begin
+			wEnable_BR=1'b0;
+			SEL_dmx=1'b1;
+			OP_alu=4'b1111;
+			W_ram=1'b0;
+			R_ram=1'b0;
 			end
 	endcase
 end
