@@ -24,7 +24,7 @@ def parse_instruction(line):
     if not opcode:
         raise ValueError(f"Opcode no válido: {parts[0]}")
     
-    # Instrucciones aritméticas (ADD, SUB, SLT)
+    # Instrucciones aritméticas (ADD, SUB, SLT) - Sin cambios
     if opcode in ["000", "001", "010"]:
         if len(parts) != 4:
             raise ValueError(f"Formato incorrecto: {line}")
@@ -33,23 +33,28 @@ def parse_instruction(line):
         rs2 = register_to_bin(parts[3])
         return f"{opcode}{rd}{rs1}{rs2}"
     
-    # Instrucciones de memoria (SW, LW)
+    # Instrucciones de memoria (SW, LW) - NUEVO FORMATO: "SW $dato, $direccion"
     elif opcode in ["011", "100"]:
-        if len(parts) != 3 or '(' not in parts[2] or ')' not in parts[2]:
-            raise ValueError(f"Formato incorrecto: {line}. Debe ser: OP $rt, offset($rs)")
-        rt = register_to_bin(parts[1].strip(','))
-        offset_rs = parts[2].strip(')').split('(')
-        offset = offset_rs[0]
-        rs = register_to_bin(offset_rs[1])
-        offset_bin = f"{int(offset):05b}"  
-        return f"{opcode}{rs}{rt}{offset_bin}"
+        if len(parts) != 3 or not parts[1].startswith('$') or not parts[2].startswith('$'):
+            raise ValueError(f"Formato incorrecto: {line}. Debe ser: OP $dato, $direccion")
+        
+        dato = register_to_bin(parts[1].strip(','))  # $dato → 5 bits
+        direccion_reg = parts[2].strip(',')
+        direccion_num = int(direccion_reg.strip('$'))
+        
+        # Valida que la dirección sea 0-7 (3 bits)
+        if direccion_num < 0 or direccion_num > 7:
+            raise ValueError(f"Dirección inválida: {direccion_reg}. Debe ser $0-$7.")
+        
+        direccion_bin = f"{direccion_num:05b}"  # 3 bits
+        return f"{opcode}00000{direccion_bin}{dato}"  # opcode(3) + 0s(5) + dir(3) + dato(5)
 
 class ASMConverterApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Ensamblador a Binario")
         self.root.geometry("800x600")
-        self.root.configure(bg="#333333") 
+        self.root.configure(bg="#333333")  # Fondo gris oscuro
         
         # Frame principal
         self.main_frame = tk.Frame(root, bg="#333333")
