@@ -34,14 +34,14 @@ def parse_instruction(line):
     
     elif opcode in ["011", "100"]:
         if len(parts) != 3 or not parts[1].startswith('$') or not parts[2].startswith('$'):
-            raise ValueError(f"Formato incorrecto: {line}. Debe ser: OP $dato, $direccion")
+            raise ValueError(f"Formato incorrecto: {line}. Debe ser: OP $direccion, $dato")
         
-        dato = register_to_bin(parts[1].strip(','))  # $dato → 5 bits
-        direccion_reg = parts[2].strip(',')
-        direccion_num = int(direccion_reg.strip('$'))
+        direccion = register_to_bin(parts[1].strip(','))  # $dato → 5 bits
+        dato_reg = parts[2].strip(',')
+        dato_num = int(dato_reg.strip('$'))
         
-        direccion_bin = f"{direccion_num:05b}" 
-        return f"{opcode}00000{direccion_bin}{dato}" 
+        dato_bin = f"{dato_num:05b}" 
+        return f"{opcode}00000{direccion}{dato_bin}" 
 
 class ASMConverterApp:
     def __init__(self, root):
